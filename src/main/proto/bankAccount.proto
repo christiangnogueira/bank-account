@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.micronaut.study";
+option java_outer_classname = "BankAccount";
+option objc_class_prefix = "HLW";
+
+package com.micronaut.study;
+
+service BankAccountService {
+  rpc send (BankAccountRequest) returns (BankAccountReply) {}
+}
+
+message BankAccountRequest {
+  string name = 1;
+}
+
+message BankAccountReply {
+  string message = 1;
+}
