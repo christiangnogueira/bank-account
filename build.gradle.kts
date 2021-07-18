@@ -31,10 +31,15 @@ dependencies {
     implementation("javax.annotation:javax.annotation-api")
     implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
-    runtimeOnly("ch.qos.logback:logback-classic")
     implementation("io.micronaut:micronaut-validation")
-
+    implementation("io.grpc:grpc-kotlin-stub:0.1.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2")
+    implementation("io.micronaut.sql:micronaut-hibernate-jpa")
+    implementation("io.micronaut.sql:micronaut-jdbc-hikari")
+    runtimeOnly("com.h2database:h2")
+    runtimeOnly("ch.qos.logback:logback-classic")
     runtimeOnly("com.fasterxml.jackson.module:jackson-module-kotlin")
+    runtimeOnly("org.postgresql:postgresql")
 
     testImplementation("io.micronaut:micronaut-http-client")
 
@@ -66,6 +71,7 @@ sourceSets {
     main {
         java {
             srcDirs("build/generated/source/proto/main/grpc")
+            srcDirs("build/generated/source/proto/main/grpckt")
             srcDirs("build/generated/source/proto/main/java")
         }
     }
@@ -79,12 +85,16 @@ protobuf {
         id("grpc") {
             artifact = "io.grpc:protoc-gen-grpc-java:1.38.0"
         }
+        id("grpckt") {
+            artifact = "io.grpc:protoc-gen-grpc-kotlin:0.2.0:jdk7@jar"
+        }
     }
     generateProtoTasks {
         ofSourceSet("main").forEach {
             it.plugins {
                 // Apply the "grpc" plugin whose spec is defined above, without options.
                 id("grpc")
+                id("grpckt")
             }
         }
     }

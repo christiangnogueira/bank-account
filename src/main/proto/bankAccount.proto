@@ -8,13 +8,14 @@ option objc_class_prefix = "HLW";
 package com.micronaut.study;
 
 service BankAccountService {
-  rpc send (BankAccountRequest) returns (BankAccountReply) {}
+  rpc transfer (AccountTransferRequest) returns (AccountTransferResponse) {}
 }
 
-message BankAccountRequest {
-  string name = 1;
+message AccountTransferRequest {
+  int32 destinationAccount = 1;
+  double value = 2;
 }
 
-message BankAccountReply {
+message AccountTransferResponse {
   string message = 1;
 }

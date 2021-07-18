@@ -1,3 +1,18 @@
 micronaut:
   application:
     name: bankAccount
+
+datasources:
+  default:
+    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=client
+    username: root
+    password: 123456
+    driverClassName: org.postgresql.Driver
+
+jpa:
+  default:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: update
+        show_sql: true
